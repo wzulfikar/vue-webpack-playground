@@ -37,7 +37,7 @@ export default {
       // first time entry. Hard-coded for now
       // because we'll use a different approach
       // in the next article anyway
-      totalTime: 1.5
+      totalTime: 0
     }
   },
   created: function () {
