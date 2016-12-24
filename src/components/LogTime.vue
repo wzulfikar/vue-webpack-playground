@@ -79,6 +79,7 @@
       submit () {
         this.$validator.validateAll()
         if (this.errors.any()) {
+          this.sharedState.autofocusOnVeeFields(this.fields)
           this.displayError = true
           return
         }
