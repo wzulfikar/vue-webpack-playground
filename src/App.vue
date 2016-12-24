@@ -12,6 +12,7 @@
           <!-- <router-link> will be rendered as an `<a>` tag by default -->
           <li><router-link to="/home">Home</router-link></li>
           <li><router-link to="/hello">Hello</router-link></li>
+          <li><router-link to="/time-entries">Time Entries</router-link></li>
         </ul>
       </div>
     </nav>
