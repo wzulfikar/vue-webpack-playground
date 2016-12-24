@@ -1,4 +1,5 @@
 <template>
+  <form v-on:submit.prevent="submit">
   <div class="form-horizontal">
     <div class="form-group">
       <div class="col-sm-6">
@@ -8,7 +9,11 @@
           class="form-control"
           v-model="timeEntry.date"
           placeholder="Date"
+          v-validate.initial="timeEntry.date"
+          data-vv-rules="required"
+          name="date"
         />
+        <p class="text-danger" v-if="displayError && errors.has('date')">{{ errors.first('date') }}</p>
       </div>
       <div class="col-sm-6">
         <label>Hours</label>
@@ -18,9 +23,11 @@
           v-model="timeEntry.totalTime"
           placeholder="Hours"
           v-validate.initial="timeEntry.totalTime"
-          data-vv-rules="required|number"
+          data-vv-rules="required|decimal:1"
+          name="hours"
+          autofocus 
         />
-        <p class="text-danger" v-if="errors.has('timeEntry.totalTime')">{{ errors.first('timeEntry.totalTime') }}</p>
+        <p class="text-danger" v-if="displayError && errors.has('hours')">{{ errors.first('hours') }}</p>
       </div>      
     </div>    
     <div class="form-group">
@@ -31,13 +38,19 @@
           class="form-control"
           v-model="timeEntry.comment"
           placeholder="Comment"
+          v-validate.initial="timeEntry.comment"
+          data-vv-rules="required"
+          name="comment"
         />
-      </div>        
-    </div>    
-    <button class="btn btn-primary" @click="save()">Save</button>
+        <p class="text-danger" v-if="displayError && errors.has('comment')">{{ errors.first('comment') }}</p>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-warning" type="reset" @click="clearErrors">Reset</button>
     <router-link to="/time-entries" class="btn btn-danger">Cancel</router-link>
     <hr>
   </div>
+  </form>
 
 </template>
 
@@ -45,6 +58,7 @@
   export default {
     data () {
       return {
+        displayError: true,
         // We default the user object on
         // the timeEntry to have some user details
         timeEntry: {
@@ -58,6 +72,19 @@
       }
     },
     methods: {
+      clearErrors () {
+        this.errors.clear()
+        this.displayError = false
+      },
+      submit () {
+        this.$validator.validateAll()
+        if (this.errors.any()) {
+          this.displayError = true
+          return
+        }
+        this.save()
+        this.clearErrors()
+      },
       save () {
         let timeEntry = this.timeEntry
         // We dispatch the timeEntry so it can be pushed
