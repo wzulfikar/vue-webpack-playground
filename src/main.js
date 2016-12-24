@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VeeValidate from 'vee-validate'
 
 // components
 import App from './App'
@@ -13,6 +14,7 @@ import LogTime from './components/LogTime'
 // - If using a module system (e.g. via vue-cli), import Vue and VueRouter and then call Vue.use(VueRouter).
 // Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(VeeValidate)
 
 // - Define some routes
 // Each route should map to a component. The "component" can
