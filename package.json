@@ -11,7 +11,8 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "github-pages": "cp -R dist/ docs/"
+    "github-pages": "cp -R dist/ docs/",
+    "surge": "npm run build && surge dist"
   },
   "dependencies": {
     "vue": "^2.1.0",
