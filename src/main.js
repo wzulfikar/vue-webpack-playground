@@ -20,7 +20,8 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/hello', component: Hello },
   { path: '/home', component: Home },
-  { path: '/app', component: App }
+  { path: '/app', component: App },
+  { path: '*', redirect: '/home' }
 ]
 
 // 3. Create the router instance and pass the `routes` option
