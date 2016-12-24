@@ -40,7 +40,15 @@ export default {
       totalTime: 1.5
     }
   },
-  events: {
+  created: function () {
+    this.eventHub.$on('sidebar.timeUpdate', this.timeUpdate)
+    this.eventHub.$on('sidebar.deleteTime', this.deleteTime)
+  },
+  beforeDestroy: function () {
+    this.eventHub.$off('sidebar.timeUpdate', this.timeUpdate)
+    this.eventHub.$off('sidebar.deleteTime', this.deleteTime)
+  },
+  methods: {
     // Increment the totalTime value based on the new
     // time entry that is dispatched up
     timeUpdate (timeEntry) {

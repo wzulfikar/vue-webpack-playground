@@ -59,8 +59,8 @@
         let timeEntry = this.timeEntry
         // We dispatch the timeEntry so it can be pushed
         // onto the timeEntries array in the parent component
-        this.$dispatch('timeUpdate', timeEntry)
-        this.timeEntry = {}
+        this.eventHub.$emit('entries.timeUpdate', timeEntry)
+        this.eventHub.$emit('sidebar.timeUpdate', timeEntry)
       }
     }
   }

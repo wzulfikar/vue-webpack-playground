@@ -63,6 +63,26 @@
   </div>
 </template>
 
+<style>
+  .avatar {
+    height: 75px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .user-details {
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+    margin: -10px 0;
+  }
+  .time-block {
+    padding: 10px;
+  }
+  .comment-section {
+    padding: 20px;
+  }
+</style>
+
 <script>
   export default {
     data () {
@@ -84,17 +104,23 @@
         timeEntries: [existingEntry]
       }
     },
+    created: function () {
+      this.eventHub.$on('entries.timeUpdate', this.timeUpdate)
+      this.eventHub.$on('entries.deleteTime', this.deleteTime)
+    },
+    beforeDestroy: function () {
+      this.eventHub.$off('entries.timeUpdate', this.timeUpdate)
+      this.eventHub.$off('entries.deleteTime', this.deleteTime)
+    },
     methods: {
       deleteTimeEntry (timeEntry) {
         // Get the index of the clicked time entry and splice it out
         let index = this.timeEntries.indexOf(timeEntry)
         if (window.confirm('Are you sure you want to delete this time entry?')) {
+          this.eventHub.$emit('sidebar.deleteTime', timeEntry)
           this.timeEntries.splice(index, 1)
-          this.$dispatch('deleteTime', timeEntry)
         }
-      }
-    },
-    events: {
+      },
       timeUpdate (timeEntry) {
         this.timeEntries.push(timeEntry)
         return true
@@ -102,23 +128,3 @@
     }
   }
 </script>
-
-<style>
-  .avatar {
-    height: 75px;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .user-details {
-    background-color: #f5f5f5;
-    border-right: 1px solid #ddd;
-    margin: -10px 0;
-  }
-  .time-block {
-    padding: 10px;
-  }
-  .comment-section {
-    padding: 20px;
-  }
-</style>
