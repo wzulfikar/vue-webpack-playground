@@ -48,5 +48,5 @@ new Vue({
   el: '#app',
   router: router,
   template: '<App/>',
-  components: { App }
+  components: { App, TimeEntries, LogTime }
 })
