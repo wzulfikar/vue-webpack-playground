@@ -41,12 +41,12 @@ export default {
     }
   },
   created: function () {
-    this.eventHub.$on('sidebar.timeUpdate', this.timeUpdate)
-    this.eventHub.$on('sidebar.deleteTime', this.deleteTime)
+    this.sharedState.$on('sidebar.timeUpdate', this.timeUpdate)
+    this.sharedState.$on('sidebar.deleteTime', this.deleteTime)
   },
   beforeDestroy: function () {
-    this.eventHub.$off('sidebar.timeUpdate', this.timeUpdate)
-    this.eventHub.$off('sidebar.deleteTime', this.deleteTime)
+    this.sharedState.$off('sidebar.timeUpdate', this.timeUpdate)
+    this.sharedState.$off('sidebar.deleteTime', this.deleteTime)
   },
   methods: {
     // Increment the totalTime value based on the new

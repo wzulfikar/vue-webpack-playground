@@ -105,19 +105,23 @@
       }
     },
     created: function () {
-      this.eventHub.$on('entries.timeUpdate', this.timeUpdate)
-      this.eventHub.$on('entries.deleteTime', this.deleteTime)
+      if (this.sharedState.timeEntries) {
+        this.timeEntries = this.sharedState.timeEntries
+      }
+      this.sharedState.$on('entries.timeUpdate', this.timeUpdate)
+      this.sharedState.$on('entries.deleteTime', this.deleteTime)
     },
     beforeDestroy: function () {
-      this.eventHub.$off('entries.timeUpdate', this.timeUpdate)
-      this.eventHub.$off('entries.deleteTime', this.deleteTime)
+      this.sharedState.timeEntries = this.timeEntries
+      this.sharedState.$off('entries.timeUpdate', this.timeUpdate)
+      this.sharedState.$off('entries.deleteTime', this.deleteTime)
     },
     methods: {
       deleteTimeEntry (timeEntry) {
         // Get the index of the clicked time entry and splice it out
         let index = this.timeEntries.indexOf(timeEntry)
         if (window.confirm('Are you sure you want to delete this time entry?')) {
-          this.eventHub.$emit('sidebar.deleteTime', timeEntry)
+          this.sharedState.$emit('sidebar.deleteTime', timeEntry)
           this.timeEntries.splice(index, 1)
         }
       },
