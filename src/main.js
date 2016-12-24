@@ -8,6 +8,7 @@ import App from './App'
 import Hello from './components/Hello'
 import Home from './components/Home'
 import TimeEntries from './components/TimeEntries'
+import LogTime from './components/LogTime'
 
 // - If using a module system (e.g. via vue-cli), import Vue and VueRouter and then call Vue.use(VueRouter).
 // Vue.use(VueResource)
@@ -21,7 +22,13 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/hello', component: Hello },
   { path: '/home', component: Home },
-  { path: '/time-entries', component: TimeEntries },
+  {
+    path: '/time-entries',
+    component: TimeEntries,
+    children: [
+      { path: 'log-time', component: LogTime }
+    ]
+  },
   { path: '*', redirect: '/home' }
 ]
 
