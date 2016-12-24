@@ -17,6 +17,10 @@ const sharedState = new Vue({
     focus (name) {
       document.getElementsByName(name)[0].focus()
     },
+    autofocusOnVeeFields (veeFields) {
+      var firstInputName = this.getFirstVeeErrorName(veeFields)
+      this.focus(firstInputName)
+    },
     getFirstVeeErrorName (fields) {
       var props = Object.keys(fields.fields).reverse()
       var name
