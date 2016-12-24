@@ -10,6 +10,18 @@ import Home from './components/Home'
 import TimeEntries from './components/TimeEntries'
 import LogTime from './components/LogTime'
 
+// global variable via mixin
+const eventHub = new Vue() // Single event hub
+
+// Distribute to components using global mixin
+Vue.mixin({
+  data: function () {
+    return {
+      eventHub: eventHub
+    }
+  }
+})
+
 // - If using a module system (e.g. via vue-cli), import Vue and VueRouter and then call Vue.use(VueRouter).
 // Vue.use(VueResource)
 Vue.use(VueRouter)
