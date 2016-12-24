@@ -12,7 +12,24 @@ import TimeEntries from './components/TimeEntries'
 import LogTime from './components/LogTime'
 
 // global variable via mixin
-const sharedState = new Vue() // Single event hub
+const sharedState = new Vue({
+  methods: {
+    focus (name) {
+      document.getElementsByName(name)[0].focus()
+    },
+    getFirstVeeErrorName (fields) {
+      var props = Object.keys(fields.fields).reverse()
+      var name
+      props.forEach(function (propName) {
+        if (!fields.fields[propName].valid) {
+          name = propName
+          return false
+        }
+      })
+      return name
+    }
+  }
+})
 
 // Distribute to components using global mixin
 Vue.mixin({
