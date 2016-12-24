@@ -86,20 +86,7 @@
 <script>
   export default {
     data () {
-      // We want to start with an existing time entry
-      let defaultEntry = {
-        user: {
-          firstName: 'Ryan',
-          lastName: 'Chenkie',
-          email: 'ryanchenkie@gmail.com',
-          image: 'https://1.gravatar.com/avatar/7f4ec37467f2f7db6fffc7b4d2cc8dc2?s=250'
-        },
-        comment: '',
-        totalTime: 0,
-        date: ''
-      }
       return {
-        defaultEntry: defaultEntry,
         // Start out with the existing entry
         // by placing it in the array
         timeEntries: []
