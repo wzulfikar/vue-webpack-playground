@@ -17,7 +17,10 @@
           class="form-control"
           v-model="timeEntry.totalTime"
           placeholder="Hours"
+          v-validate.initial="timeEntry.totalTime"
+          data-vv-rules="required|number"
         />
+        <p class="text-danger" v-if="errors.has('timeEntry.totalTime')">{{ errors.first('timeEntry.totalTime') }}</p>
       </div>      
     </div>    
     <div class="form-group">
